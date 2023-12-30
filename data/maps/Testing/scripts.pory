@@ -1,0 +1,134 @@
+mapscripts Testing_MapScripts{
+    MAP_SCRIPT_ON_FRAME_TABLE [
+        VAR_GYARADOS_FIGHT, 0: GyaradosFightIntro
+    ] 
+}
+
+script GyaradosFightIntro{
+    lock
+    applymovement(OBJ_EVENT_ID_PLAYER, Player_1)
+    waitmovement(0)
+    applymovement(1, NPC_1)
+    playse(SE_PIN)
+    waitmovement(0)
+    waitse
+    msgbox(NPC_Talk, MSGBOX_AUTOCLOSE)
+    waitmessage
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, Camera_Pan_1)
+    waitmovement(0)
+    delay(60)
+    playmoncry(SPECIES_GYARADOS, 0)
+    setvar(VAR_0x8004, 2) // @ vertical pan
+    setvar(VAR_0x8005, 6) // @ horizontal pan
+    setvar(VAR_0x8006, 10) // @ num shakes
+    setvar(VAR_0x8007, 4) // @ shake delay
+    special(ShakeCamera)
+    waitstate
+    waitmoncry
+    setweather(WEATHER_RAIN_THUNDERSTORM)
+    doweather
+    delay(120)
+    applymovement(OBJ_EVENT_ID_CAMERA, Camera_Pan_2)
+    waitmovement(0)
+    special(RemoveCameraObject)
+    setvar(VAR_GYARADOS_FIGHT, 1)
+    releaseall
+    end
+}
+
+script Gyarados_Turn_Back{
+    lock
+    applymovement(1, NPC_1)
+    playse(SE_PIN)
+    waitmovement(0)
+    msgbox(NPC_Talk_2)
+    waitmessage
+    applymovement(OBJ_EVENT_ID_PLAYER, Player_Turn_Back)
+    waitmovement(0)
+    release
+    end
+}
+
+script GyaradosFight{
+    lock
+    applymovement(OBJ_EVENT_ID_PLAYER, Player_2)
+    waitmovement(0)
+    applymovement(2, Gyarados_1)
+    waitmovement(0)
+    delay(30)
+    playmoncry(SPECIES_GYARADOS, 0)
+    special(ShakeCamera)
+    delay(30)
+    applymovement(OBJ_EVENT_ID_PLAYER, Player_3)
+    playse(SE_LEDGE)
+    delay(10)
+    playse(SE_LEDGE)
+    delay(10)
+    playse(SE_LEDGE)
+    waitmovement(0)
+    msgbox(Player_Talk_1)
+    waitmessage
+    setvar(VAR_GYARADOS_FIGHT, 2)
+    release
+    end
+}
+
+movement Player_1{
+    walk_right * 3
+    walk_down * 3
+    walk_right * 2
+    walk_down * 3
+    walk_right * 2
+    face_up
+}
+
+movement Player_2{
+    walk_up * 2
+}
+
+movement Player_3{
+    jump_down * 3
+}
+
+movement Player_Turn_Back{
+    face_right
+    walk_right
+}
+
+movement NPC_1{
+    face_down
+    emote_exclamation_mark
+}
+
+movement Gyarados_1{
+    walk_down * 2
+    walk_in_place_fast_down
+}
+
+movement Camera_Pan_1{
+    walk_right * 13
+    walk_up * 3
+}
+
+movement Camera_Pan_2{
+    walk_down * 3
+    walk_left * 13
+}
+
+text Player_Talk_1{
+    "{PLAYER}: {COLOR GREEN}{SHADOW LIGHT_GREEN}(I don’t stand a chance without a \n"
+    "Pokemon...)"
+}
+
+text NPC_Talk{
+    "NPC: Thank goodness someone is here! \n" 
+    "There is a Gyarados on a rampage! \p"
+    "I can’t do anything to help… \p"
+    "Please, do something!!"
+}
+
+text NPC_Talk_2{
+    "NPC: Where are you going?! \p"
+    "Please, help!!!"
+}
