@@ -417,7 +417,7 @@ NPC_Talk::
 	.string "NPC: Thank goodness someone is here! \n"
 	.string "There is a Gyarados on a rampage! \p"
 	.string "I can’t do anything to help… \p"
-	.string "Please, do something!! \p$"
+	.string "Please, do something!!$"
 
 NPC_Talk_2::
 	.string "NPC: Where are you going?! \p"
@@ -431,15 +431,15 @@ NPC_Talk_3::
 	.string "Thank you, traveler.$"
 
 Raichu_Join_Team::
-	.string "This Raichu seems to want to help you fight \n"
-	.string "Gyarados. \p"
-	.string "Will you let Raichu join you?$"
+	.string "This Raichu seems to want to help you \n"
+	.string "fight the Gyarados. \p"
+	.string "Let Raichu join you?$"
 
 Raichu_Obtained::
 	.string "Raichu joined your team!$"
 
 Raichu_Refusal::
-	.string "But the look in its eyes is so determined…$"
+	.string "But there is a fire in its eyes...$"
 
 GyaradosDive::
 	.string "The Gyarados dove back into the deep…$"

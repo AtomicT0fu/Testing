@@ -557,8 +557,8 @@ void BattleSetup_StartLegendaryBattle(void)
     case SPECIES_MEW:
         CreateBattleStartTask(B_TRANSITION_GRID_SQUARES, MUS_VS_MEW);
         break;
-    case SPECIES_GYARADOS:
-        CreateBattleStartTask(B_TRANSITION_GRID_SQUARES, MUS_VS_REGI);
+    case SPECIES_GYARADOS: // NAME_SPECIES
+        CreateBattleStartTask(B_TRANSITION_GRID_SQUARES, MUS_VS_REGI); // ([TRANSITION_TYPE], [BATTLE_MUS])
         break;
     }
 

@@ -1,47 +1,52 @@
+// Hello Miguel
+// ToC: [1] = MAP_SCRIPTS, [2] = EVENT_SCRIPTS, [3] = MOVEMENTS, [4] = STRINGS(TEXT)
+// IMPORTANT FILES: flags.h | vars.h | event.inc
+
+
 //---------------------------[MAP_SCRIPTS]-------------------------------------------------------------
 
-mapscripts Testing_MapScripts{
-    MAP_SCRIPT_ON_FRAME_TABLE [
-        VAR_GYARADOS_FIGHT, 0: GyaradosFightIntro
+mapscripts Testing_MapScripts{ // [NAME_OF_MAP]_MapScripts{
+    MAP_SCRIPT_ON_FRAME_TABLE [ // Means a script will trigger when a var is at a certain value anywhere on the map
+        VAR_GYARADOS_FIGHT, 0: GyaradosFightIntro // [NAME_OF_VAR], [VAR_VALUE]: [SCRIPT]
     ] 
 }
 
 //---------------------------[EVENT_SCRIPTS]-----------------------------------------------------------
 
 script GyaradosFightIntro{
-    lock
-    applymovement(OBJ_EVENT_ID_PLAYER, Player_1)
-    waitmovement(0)
+    lock // locks player movement
+    applymovement(OBJ_EVENT_ID_PLAYER, Player_1) // applymovement([OBJ #], [SCRIPT_NAME]) ,, OBJ # for player = OBJ_EVENT_ID_PLAYER
+    waitmovement(0) // Pause script exec. until movement script completes. ([OBJ #]) ,, When 0 is used for OBJ # script waits for the immediet previous movement
     applymovement(1, NPC_1)
-    playse(SE_PIN)
+    playse(SE_PIN) // SE = Sound Effect
     waitmovement(0)
-    waitse
-    msgbox(NPC_Talk, MSGBOX_AUTOCLOSE)
-    waitmessage
-    closemessage
-    fadeoutbgm(1)
-    playbgm(MUS_NONE, TRUE)
-    special(SpawnCameraObject)
-    applymovement(OBJ_EVENT_ID_CAMERA, Camera_Pan_1)
+    waitse // Waits for previous SE to finish
+    msgbox(NPC_Talk, MSGBOX_AUTOCLOSE) // Calls a text window at bottom of screen. msgbox([NAME_OF_STRING], [OPTIONAL])
+    waitmessage // Waits for previous message to display
+    closemessage // Closes previous message
+    fadeoutbgm(1) // BGM = Background Music ,, fades out current BGM ,, fadeoutbgm([SPEED_INTEGER])
+    playbgm(MUS_NONE, TRUE) // playbgm([NAME_OF_MUSIC], [SAVE_T/F]) ,, If save == TRUE, BGM will continue after script termination
+    special(SpawnCameraObject) // Spawns invisible youngster sprite at player (x,y) ,, Camera follows invisible youngster
+    applymovement(OBJ_EVENT_ID_CAMERA, Camera_Pan_1) // OBJ # for Camera = OBJ_EVENT_ID_CAMERA
     waitmovement(0)
-    delay(60)
-    playmoncry(SPECIES_GYARADOS, 0)
+    delay(60) // Pauses script for specified frames ,, Emerald runs at about 60 fps
+    playmoncry(SPECIES_GYARADOS, 0) // playmoncry(SPECIES_[NAME], [CRY_MODE]) ,, for CRY_MODES see [sound.h] 
     setvar(VAR_0x8004, 2) // @ vertical pan
     setvar(VAR_0x8005, 6) // @ horizontal pan
     setvar(VAR_0x8006, 10) // @ num shakes
     setvar(VAR_0x8007, 4) // @ shake delay
-    special(ShakeCamera)
-    waitstate
-    waitmoncry
-    setweather(WEATHER_RAIN_THUNDERSTORM)
-    doweather
+    special(ShakeCamera) // Ex. camera shake according to previously set VARs
+    waitstate // Pauses for camera shake term. 
+    waitmoncry // Pauses until moncry term.
+    setweather(WEATHER_RAIN_THUNDERSTORM) // Loads weather effect
+    doweather // Activates the loaded weather effect
     delay(120)
     applymovement(OBJ_EVENT_ID_CAMERA, Camera_Pan_2)
     waitmovement(0)
-    special(RemoveCameraObject)
-    setvar(VAR_GYARADOS_FIGHT, 1)
-    releaseall
-    end
+    special(RemoveCameraObject) // Despawns camera 
+    setvar(VAR_GYARADOS_FIGHT, 1) // setvar([NAME_OF_VAR], [VALUE]) ,, VAR can be 0-99
+    releaseall // Allows all objects to move freely
+    end // Terminates script
 }
 
 script GyaradosTurnBack{
@@ -66,10 +71,10 @@ script GyaradosFight{
     waitmovement(0)
     delay(30)
     playmoncry(SPECIES_GYARADOS, 2)
-    special(ShakeCamera)
+    special(ShakeCamera) // Still uses previously set VARs
     delay(30)
     applymovement(OBJ_EVENT_ID_PLAYER, Player_3)
-    playse(SE_LEDGE)
+    playse(SE_LEDGE) // Good SE for hops/jumps
     delay(10)
     playse(SE_LEDGE)
     delay(10)
@@ -78,24 +83,25 @@ script GyaradosFight{
     msgbox(Player_Talk_1, MSGBOX_AUTOCLOSE)
     waitmessage
     closemessage
-    addobject(3, MAP_TESTING)
+    addobject(3, MAP_TESTING) // addobject([OBJ_#], MAP_[MAP_NAME]) ,, Spawns object even if flag is set
+    // Objects can be hidden by setting their flag in Porymap to FLAG_HIDE_CHAMPIONS_ROOM_RIVAL as it is always set
     applymovement(3, Raichu_1)
     waitmovement(0)
     applymovement(OBJ_EVENT_ID_PLAYER, Player_4)
-    playse(SE_PIN)
+    playse(SE_PIN) // Commonly used for "!" emote
     waitse
     waitmovement(0)
-    call(RaichuJoinTeam)
+    call(RaichuJoinTeam) // Calls a separate event_script
     applymovement(OBJ_EVENT_ID_PLAYER, Player_2)
     waitmovement(0)
     delay(30)
     playse(SE_BALL_THROW)
-    addobject(5)
+    addobject(5) // MAP is not req. to spawn an object but could be in certain situations
     waitse
     delay(60)
     playse(SE_BALL_OPEN)
     addobject(6)
-    removeobject(5)
+    removeobject(5) // Despawns selected object_event
     waitse
     delay(30)
     playmoncry(SPECIES_RAICHU, 0)
@@ -104,17 +110,17 @@ script GyaradosFight{
     playmoncry(SPECIES_GYARADOS, 2)
     special(ShakeCamera)
     waitstate
-    setwildbattle(SPECIES_GYARADOS, 50, ITEM_NONE)
-    special(BattleSetup_StartLegendaryBattle)
+    setwildbattle(SPECIES_GYARADOS, 50, ITEM_NONE) // Stores info for a wild battle ,, setwildbattle(SPECIES_[NAME], [LVL], [ITEM])
+    special(BattleSetup_StartLegendaryBattle) // Triggers special effects if loaded SPECIES has an intro ,, See [battle_setup.c] ,, For a generic battle use "dowildbattle"
     waitstate
     
-    specialvar(VAR_RESULT, GetBattleOutcome)
-    if(var(VAR_RESULT) == B_OUTCOME_WON){
+    specialvar(VAR_RESULT, GetBattleOutcome) // Retrieves resut of previous battle (WIN/LOSS/TELEPORT/RAN)
+    if(var(VAR_RESULT) == B_OUTCOME_WON){ 
         call(GyaradosExit)
     }
 
     waitmessage
-    setmetatile(21, 18, 0x0C3, TRUE)
+    setmetatile(21, 18, 0x0C3, TRUE) // setmetatile([x], [y], [NEW_METATILE_ID], [IMPASSABLE_T/F]) ,, **CANNOT UPDATE TILES CURRENTLY IN PLAYER VIEW**
     setmetatile(22, 18, 0x0B1, TRUE)
     setmetatile(23, 18, 0x0B1, TRUE)
     setmetatile(24, 18, 0x0B1, TRUE)
@@ -150,15 +156,15 @@ script GyaradosFight{
     playse(SE_RG_BAG_POCKET)
     waitse
     setvar(VAR_GYARADOS_FIGHT, 2)
-    setflag(FLAG_HIDE_GYARADOS)
-    fadedefaultbgm
+    setflag(FLAG_HIDE_GYARADOS) // Flags are either TRUE or FALSE ,, setflag(NAME_OF_FLAG) == TRUE ,, clearflag(NAME_OF_FLAG) == FALSE ,, Sprites will be hidden when the flag is SET(TRUE)
+    fadedefaultbgm // Fades in the maps default bgm
     releaseall
     end
 }
 
 script GyaradosExit{
-    resetweather
-    doweather
+    resetweather // Loads default weather effect
+    doweather // Executes loaded weather effect
     applymovement(2, Gyarados_2)
     delay(90)
     applymovement(2, Gyarados_3)
@@ -211,52 +217,52 @@ script GyaradosFightOutro{
 }
 
 script RaichuJoinTeam{
-    msgbox(Raichu_Join_Team, MSGBOX_YESNO)
-    if(var(VAR_RESULT) == YES){
-        setflag(FLAG_SYS_POKEMON_GET)
+    msgbox(Raichu_Join_Team, MSGBOX_YESNO) // MSGBOX_YESNO pulls up a YES/NO window option on screen
+    if(var(VAR_RESULT) == YES){ // If the player selects yes then do ...
+        setflag(FLAG_SYS_POKEMON_GET) // **MUST SET THIS FLAG IF FIRST POKE OBTAINED** ,, Loads the Pokemon tab in Start Menu
         playse(SE_BALL_THROW)
         addobject(4, MAP_TESTING)
         delay(30)
         removeobject(3, MAP_TESTING)
         playse(SE_RG_BALL_CLICK)
         waitse
-        playfanfare(MUS_OBTAIN_BADGE)
+        playfanfare(MUS_OBTAIN_BADGE) // Similar to playSE, but sounds such as a caught pokemon or a item obtained use playfanfare
         msgbox(Raichu_Obtained, MSGBOX_AUTOCLOSE)
-        givemon(SPECIES_RAICHU, 75, ITEM_FOCUS_SASH)
+        givemon(SPECIES_RAICHU, 75, ITEM_FOCUS_SASH) // givemon(SPECIES_[NAME], [LVL], [ITEM])
         waitmessage
-        waitfanfare
+        waitfanfare // Waits for fanfare to finish
         closemessage
         playse(SE_RG_BAG_POCKET)
         removeobject(4, MAP_TESTING)
     }
-    else{
-        msgbox(Raichu_Refusal)
+    else{ // If the player selected anything other than yes (no), do...
+        msgbox(Raichu_Refusal, MSGBOX_AUTOCLOSE)
         waitmessage
-        waitbuttonpress
-        setflag(FLAG_SYS_POKEMON_GET)
+        closemessage
+        setflag(FLAG_SYS_POKEMON_GET) // **MUST SET THIS FLAG IF FIRST POKE OBTAINED** ,, Loads the Pokemon tab in Start Menu
         playse(SE_BALL_THROW)
         addobject(4, MAP_TESTING)
         delay(30)
         removeobject(3, MAP_TESTING)
         playse(SE_RG_BALL_CLICK)
         waitse
-        playfanfare(MUS_OBTAIN_BADGE)
+        playfanfare(MUS_OBTAIN_BADGE) // Similar to playSE, but sounds such as a caught pokemon or a item obtained use playfanfare
         msgbox(Raichu_Obtained, MSGBOX_AUTOCLOSE)
-        givemon(SPECIES_RAICHU, 75, ITEM_FOCUS_SASH)
+        givemon(SPECIES_RAICHU, 75, ITEM_FOCUS_SASH) // givemon(SPECIES_[NAME], [LVL], [ITEM])
         waitmessage
-        waitfanfare
+        waitfanfare // Waits for fanfare to finish
         closemessage
         playse(SE_RG_BAG_POCKET)
         removeobject(4, MAP_TESTING)
     }
-    return // --> GyaradosFight
+    return // If a script is called, this cmd will return the script to where it was called and proceed ,, returns to [script GyaradosFight]
 }
 
 script WarpOut{
     lockall
     msgbox(Warp_Q, MSGBOX_YESNO)
     if(var(VAR_RESULT) == YES){
-        warpwhitefade(MAP_MAIN_HUB, 7, 11)
+        warpwhitefade(MAP_MAIN_HUB, 7, 11) // Fades screen to white and warpr player ,, warpwhitefade(MAP_[NAME_OF_MAP], [X], [Y])
     }
     else{
         releaseall
@@ -267,7 +273,7 @@ script WarpOut{
 //---------------------------[MOVEMENTS]-----------------------------------------------------------
 
 movement Player_1{
-    walk_right * 3
+    walk_right * 3 // If moving multiple spaces use [MOVEMENT] [*] [#_SPACES]
     walk_down * 3
     walk_right * 2
     walk_down * 3
@@ -284,7 +290,7 @@ movement Player_3{
 }
 
 movement Player_4{
-    emote_exclamation_mark
+    emote_exclamation_mark // Emotes a "!" above object
     face_left
 }
 
@@ -349,6 +355,11 @@ movement Camera_Pan_2{
 
 //---------------------------[STRINGS]-----------------------------------------------------------
 
+// If a string is multiple lines you must place a text buffer at the end of the line ,, they do not add to your allowed char limit
+// If you want to have a textbox use both availabile line use [\n] following line 1 and [\p] after line 2
+// If you want your text to be 1 line as well as the following text use [\p] after both
+// The final line of text does not req. a text buffer
+
 text Player_Talk_1{
     "{PLAYER}: {COLOR GREEN}{SHADOW LIGHT_GREEN}(I don’t stand a chance without a \n"
     "Pokemon...)"
@@ -358,7 +369,7 @@ text NPC_Talk{
     "NPC: Thank goodness someone is here! \n" 
     "There is a Gyarados on a rampage! \p"
     "I can’t do anything to help… \p"
-    "Please, do something!! \p"
+    "Please, do something!!"
 }
 
 text NPC_Talk_2{
@@ -375,9 +386,9 @@ text NPC_Talk_3{
 }
 
 text Raichu_Join_Team{
-    "This Raichu seems to want to help you fight \n"
-    "Gyarados. \p"
-    "Will you let Raichu join you?"
+    "This Raichu seems to want to help you \n"
+    "fight the Gyarados. \p"
+    "Let Raichu join you?"
 }
 
 text Raichu_Obtained{
@@ -385,7 +396,7 @@ text Raichu_Obtained{
 }
 
 text Raichu_Refusal{
-    "But the look in its eyes is so determined…"
+    "But there is a fire in its eyes..."
 }
 
 text GyaradosDive{
