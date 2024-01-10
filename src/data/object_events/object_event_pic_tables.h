@@ -1395,6 +1395,18 @@ const struct SpriteFrameImage sPicTable_Gyarados[] = {
     overworld_frame(gObjectEventPic_Gyarados, 4, 4, 8),
 };
 
+const struct SpriteFrameImage sPicTable_Raichu[] = {
+    overworld_frame(gObjectEventPic_Raichu, 4, 4, 0),
+    overworld_frame(gObjectEventPic_Raichu, 4, 4, 1),
+    overworld_frame(gObjectEventPic_Raichu, 4, 4, 2),
+    overworld_frame(gObjectEventPic_Raichu, 4, 4, 3),
+    overworld_frame(gObjectEventPic_Raichu, 4, 4, 4),
+    overworld_frame(gObjectEventPic_Raichu, 4, 4, 5),
+    overworld_frame(gObjectEventPic_Raichu, 4, 4, 6),
+    overworld_frame(gObjectEventPic_Raichu, 4, 4, 7),
+    overworld_frame(gObjectEventPic_Raichu, 4, 4, 8),
+};
+
 static const struct SpriteFrameImage sPicTable_BrendanFishing[] = {
     overworld_frame(gObjectEventPic_BrendanFishing, 4, 4, 0),
     overworld_frame(gObjectEventPic_BrendanFishing, 4, 4, 1),

@@ -379,3 +379,5 @@ const u32 gObjectEventPic_Template[] = INCBIN_U32("graphics/object_events/pics/p
 const u16 gObjectEventPal_Template[] = INCBIN_U16("graphics/object_events/pics/people/template.gbapal");
 const u32 gObjectEventPic_Gyarados[] = INCBIN_U32("graphics/object_events/pics/pokemon/gyarados.4bpp");
 const u16 gObjectEventPal_Gyarados[] = INCBIN_U16("graphics/object_events/pics/pokemon/gyarados.gbapal");
+const u32 gObjectEventPic_Raichu[] = INCBIN_U32("graphics/object_events/pics/pokemon/raichu.4bpp");
+const u16 gObjectEventPal_Raichu[] = INCBIN_U16("graphics/object_events/pics/pokemon/raichu.gbapal");

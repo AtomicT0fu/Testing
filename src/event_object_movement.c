@@ -453,6 +453,7 @@ const u8 gInitialMovementTypeFacingDirections[] = {
 #define OBJ_EVENT_PAL_TAG_RS_MAY                  0x1123
 #define OBJ_EVENT_PAL_TEMPLATE                    0x1124
 #define OBJ_EVENT_PAL_GYARADOS                    0x1125
+#define OBJ_EVENT_PAL_RAICHU                      0x1126
 #define OBJ_EVENT_PAL_TAG_NONE                    0x11FF
 
 #include "data/field_effects/field_effect_object_template_pointers.h"
@@ -501,6 +502,8 @@ static const struct SpritePalette sObjectEventSpritePalettes[] = {
     {gObjectEventPal_RubySapphireMay,       OBJ_EVENT_PAL_TAG_RS_MAY},
     {gObjectEventPal_Template,              OBJ_EVENT_PAL_TEMPLATE},
     {gObjectEventPal_Gyarados,              OBJ_EVENT_PAL_GYARADOS},
+    {gObjectEventPal_Raichu,                OBJ_EVENT_PAL_RAICHU},
+
 #ifdef BUGFIX
     {NULL,                                  OBJ_EVENT_PAL_TAG_NONE},
 #else
