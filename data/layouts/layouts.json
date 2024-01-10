@@ -4420,6 +4420,16 @@
       "secondary_tileset": "gTileset_Petalburg",
       "border_filepath": "data/layouts/Testing/border.bin",
       "blockdata_filepath": "data/layouts/Testing/map.bin"
+    },
+    {
+      "id": "LAYOUT_MAIN_HUB",
+      "name": "Main_Hub_Layout",
+      "width": 15,
+      "height": 12,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_UnionRoom",
+      "border_filepath": "data/layouts/Main_Hub/border.bin",
+      "blockdata_filepath": "data/layouts/Main_Hub/map.bin"
     }
   ]
 }

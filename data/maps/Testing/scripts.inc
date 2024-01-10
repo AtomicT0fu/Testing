@@ -255,6 +255,20 @@ RaichuJoinTeam_2:
 	goto RaichuJoinTeam_1
 
 
+WarpOut::
+	lockall
+	msgbox Warp_Q, MSGBOX_YESNO
+	compare VAR_RESULT, YES
+	goto_if_eq WarpOut_2
+	releaseall
+WarpOut_1:
+	end
+
+WarpOut_2:
+	warpwhitefade MAP_MAIN_HUB, 7, 11
+	goto WarpOut_1
+
+
 Player_1:
 	walk_right
 	walk_right
@@ -429,3 +443,7 @@ Raichu_Refusal::
 
 GyaradosDive::
 	.string "The Gyarados dove back into the deep…$"
+
+Warp_Q::
+	.string "The rock is glowing... \p"
+	.string "Touch the rock?$"

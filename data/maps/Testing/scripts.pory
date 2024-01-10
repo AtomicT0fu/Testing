@@ -252,6 +252,18 @@ script RaichuJoinTeam{
     return // --> GyaradosFight
 }
 
+script WarpOut{
+    lockall
+    msgbox(Warp_Q, MSGBOX_YESNO)
+    if(var(VAR_RESULT) == YES){
+        warpwhitefade(MAP_MAIN_HUB, 7, 11)
+    }
+    else{
+        releaseall
+    }
+    end
+}
+
 //---------------------------[MOVEMENTS]-----------------------------------------------------------
 
 movement Player_1{
@@ -378,4 +390,9 @@ text Raichu_Refusal{
 
 text GyaradosDive{
     "The Gyarados dove back into the deep…"
+}
+
+text Warp_Q{
+    "The rock is glowing... \p"
+    "Touch the rock?"
 }
