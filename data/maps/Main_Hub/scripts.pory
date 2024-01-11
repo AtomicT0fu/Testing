@@ -1,0 +1,118 @@
+//---------------------------[MAP_SCRIPTS]-------------------------------------------------------------
+
+mapscripts Main_Hub_MapScripts{ 
+    MAP_SCRIPT_ON_FRAME_TABLE [ 
+        VAR_MAIN_GAME, 0: DirectorIntro 
+    ] 
+}
+
+//-----------------------------[EVENT_SCRIPTS]---------------------------------------------------------
+
+script DirectorIntro{
+    lockall
+    applymovement(OBJ_EVENT_ID_PLAYER, Main_Hub_Player_1)
+    special(SpawnCameraObject)
+    applymovement(OBJ_EVENT_ID_CAMERA, MainHub_Camera_1)
+    waitmovement(0)
+    applymovement(1, Director_1)
+    waitmovement(0)
+    msgbox(Director_Talk_1, MSGBOX_AUTOCLOSE)
+    waitmessage
+    closemessage
+    applymovement(OBJ_EVENT_ID_PLAYER, Main_Hub_Player_2)
+    waitmovement(0)
+    special(RemoveCameraObject)
+    msgbox(Director_Talk_2, MSGBOX_AUTOCLOSE)
+    waitmessage
+    closemessage
+    fadeoutbgm(1)
+    setvar(VAR_0x8004, 2) // @ vertical pan
+    setvar(VAR_0x8005, 6) // @ horizontal pan
+    setvar(VAR_0x8006, 10) // @ num shakes
+    setvar(VAR_0x8007, 4) // @ shake delay
+    setweather(WEATHER_SANDSTORM)
+    doweather
+    delay(60)
+    special(ShakeCamera)
+    delay(60)
+    special(ShakeCamera)
+    delay(60)
+    setweather(WEATHER_RAIN)
+    doweather
+    delay(60)
+    special(ShakeCamera)
+    delay(60)
+    special(ShakeCamera)
+    delay(60)
+    resetweather
+    doweather
+    playbgm(MUS_END, TRUE)
+    msgbox(Director_Talk_3, MSGBOX_AUTOCLOSE)
+    waitmessage
+    closemessage
+    setvar(VAR_MAIN_GAME, 1)
+    releaseall
+    end
+}
+
+//-----------------------------[MOVEMENTS]-------------------------------------------------------------
+
+movement Director_1{
+    walk_slow_down * 3
+
+}
+
+movement Main_Hub_Player_1{
+    face_up
+}
+
+movement Main_Hub_Player_2{
+    walk_up * 3
+}
+
+movement MainHub_Camera_1{
+    walk_up * 3
+}
+
+//-----------------------------[STRINGS]---------------------------------------------------------------
+
+text Director_Talk_1{
+    "???: Oh hey there! \p"
+    "Don’t be shy. \n"
+    "Come on over here!"
+}
+
+text Director_Talk_2{
+    "???: I bet you’re wondering where \n"
+    "you are, huh? \p"
+    "Well, that isn’t the simplest thing to \n"
+    "explain, you see… \p"
+    "I am the Director. \p"
+    "I have complete control of everything \n"
+    "that surrounds us. \p"
+    "Here, let me just show you!"
+}
+
+text Director_Talk_3{
+    "Director: Well, I think you get the point. \p"
+    "Anyways… \p"
+    "This place is a central hub for any \n"
+    "situation or event that I can dream up! \p"
+    "Now, your job is to live out these \n"
+    "events as if they were your own life. \p"
+    "I bet you’re also wondering why do \n"
+    "I need you? \p"
+    "In the same way that you can’t \n"
+    "influence these environments, \p"
+    "I cannot interact with them… \p"
+    "Moving on. \p"
+    "See those light pads in the corners? \p"
+    "The one on the LEFT will take you \n"
+    "to a place I like to call the \p"
+    "Capture Zone. \p"
+    "The one on the RIGHT will take \n"
+    "you to the Item Dispo… \p"
+    "When you are ready to see what \n"
+    "I have up for you next, \p"
+    "come talk to me!"
+}

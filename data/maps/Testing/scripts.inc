@@ -1,4 +1,5 @@
 Testing_MapScripts::
+	map_script MAP_SCRIPT_ON_LOAD, TreeClear
 	map_script MAP_SCRIPT_ON_FRAME_TABLE, Testing_MapScripts_MAP_SCRIPT_ON_FRAME_TABLE
 	.byte 0
 
@@ -111,6 +112,16 @@ GyaradosFight::
 	goto_if_eq GyaradosFight_2
 GyaradosFight_1:
 	waitmessage
+	closemessage
+	fadescreen FADE_TO_BLACK
+	delay 30
+	removeobject 6
+	delay 30
+	applymovement OBJ_EVENT_ID_PLAYER, Player_5a
+	waitmovement 0
+	removeobject 1
+	applymovement OBJ_EVENT_ID_PLAYER, Player_5b
+	waitmovement 0
 	setmetatile 21, 18, 0x0C3, TRUE
 	setmetatile 22, 18, 0x0B1, TRUE
 	setmetatile 23, 18, 0x0B1, TRUE
@@ -134,6 +145,10 @@ GyaradosFight_1:
 	setmetatile 22, 22, 0x099, FALSE
 	setmetatile 23, 22, 0x099, FALSE
 	setmetatile 24, 22, 0x099, FALSE
+	applymovement OBJ_EVENT_ID_PLAYER, Player_5R
+	waitmovement 0
+	addobject 6
+	fadescreen FADE_FROM_BLACK
 	delay 90
 	addobject 5
 	playse SE_BALL
@@ -147,7 +162,6 @@ GyaradosFight_1:
 	playse SE_RG_BAG_POCKET
 	waitse
 	setvar VAR_GYARADOS_FIGHT, 2
-	setflag FLAG_HIDE_GYARADOS
 	fadedefaultbgm
 	releaseall
 	end
@@ -173,6 +187,7 @@ GyaradosExit::
 	waitmoncry
 	playse SE_M_DIVE
 	hideobjectat 2, MAP_TESTING
+	setflag FLAG_HIDE_GYARADOS
 	delay 30
 	msgbox GyaradosDive, MSGBOX_AUTOCLOSE
 	closemessage
@@ -181,6 +196,8 @@ GyaradosExit::
 
 GyaradosFightOutro::
 	lockall
+	addobject 1
+	delay 10
 	applymovement 1, NPC_2
 	waitmovement 0
 	msgbox NPC_Talk_3, MSGBOX_AUTOCLOSE
@@ -215,14 +232,22 @@ RaichuJoinTeam::
 	msgbox Raichu_Join_Team, MSGBOX_YESNO
 	compare VAR_RESULT, YES
 	goto_if_eq RaichuJoinTeam_2
-	msgbox Raichu_Refusal
+	msgbox Raichu_Refusal, MSGBOX_AUTOCLOSE
 	waitmessage
-	waitbuttonpress
+	closemessage
 	setflag FLAG_SYS_POKEMON_GET
 	playse SE_BALL_THROW
 	addobject 4, MAP_TESTING
 	delay 30
+	playse SE_BALL_OPEN
 	removeobject 3, MAP_TESTING
+	delay 60
+	playse SE_BALL
+	delay 60
+	playse SE_BALL
+	delay 60
+	playse SE_BALL
+	delay 60
 	playse SE_RG_BALL_CLICK
 	waitse
 	playfanfare MUS_OBTAIN_BADGE
@@ -237,11 +262,20 @@ RaichuJoinTeam_1:
 	return
 
 RaichuJoinTeam_2:
+	closemessage
 	setflag FLAG_SYS_POKEMON_GET
 	playse SE_BALL_THROW
 	addobject 4, MAP_TESTING
 	delay 30
+	playse SE_BALL_OPEN
 	removeobject 3, MAP_TESTING
+	delay 60
+	playse SE_BALL
+	delay 60
+	playse SE_BALL
+	delay 60
+	playse SE_BALL
+	delay 60
 	playse SE_RG_BALL_CLICK
 	waitse
 	playfanfare MUS_OBTAIN_BADGE
@@ -265,8 +299,38 @@ WarpOut_1:
 	end
 
 WarpOut_2:
+	setvar VAR_MAIN_GAME, 0
+	playse SE_INTRO_BLAST
 	warpwhitefade MAP_MAIN_HUB, 7, 11
 	goto WarpOut_1
+
+
+TreeClear::
+	compare VAR_GYARADOS_FIGHT, 3
+	goto_if_eq TreeClear_2
+	release
+TreeClear_1:
+	end
+
+TreeClear_2:
+	setmetatile 6, 9, 0x1E4, TRUE
+	setmetatile 7, 9, 0x1E5, TRUE
+	setmetatile 6, 12, 0x001, FALSE
+	setmetatile 6, 13, 0x001, FALSE
+	setmetatile 7, 12, 0x001, FALSE
+	setmetatile 7, 13, 0x001, FALSE
+	setmetatile 6, 10, 0x001, FALSE
+	setmetatile 6, 11, 0x001, FALSE
+	setmetatile 7, 10, 0x001, FALSE
+	setmetatile 7, 11, 0x001, FALSE
+	setmetatile 8, 9, 0x001, FALSE
+	setmetatile 9, 9, 0x001, FALSE
+	setmetatile 8, 10, 0x001, FALSE
+	setmetatile 9, 10, 0x001, FALSE
+	setmetatile 8, 11, 0x1CE, FALSE
+	setmetatile 9, 11, 0x1CF, FALSE
+	release
+	goto TreeClear_1
 
 
 Player_1:
@@ -300,6 +364,44 @@ Player_3:
 Player_4:
 	emote_exclamation_mark
 	face_left
+	step_end
+
+Player_5a:
+	walk_faster_left
+	walk_faster_left
+	walk_faster_left
+	walk_faster_left
+	walk_faster_left
+	step_end
+
+Player_5b:
+	walk_faster_left
+	walk_faster_left
+	walk_faster_left
+	walk_faster_left
+	walk_faster_left
+	walk_faster_left
+	walk_faster_left
+	walk_faster_left
+	walk_faster_left
+	step_end
+
+Player_5R:
+	walk_faster_right
+	walk_faster_right
+	walk_faster_right
+	walk_faster_right
+	walk_faster_right
+	walk_faster_right
+	walk_faster_right
+	walk_faster_right
+	walk_faster_right
+	walk_faster_right
+	walk_faster_right
+	walk_faster_right
+	walk_faster_right
+	walk_faster_right
+	face_up
 	step_end
 
 Player_Turn_Back:
@@ -414,17 +516,17 @@ Player_Talk_1::
 	.string "Pokemon...)$"
 
 NPC_Talk::
-	.string "NPC: Thank goodness someone is here! \n"
+	.string "Kyle: Thank goodness someone is here! \n"
 	.string "There is a Gyarados on a rampage! \p"
 	.string "I can’t do anything to help… \p"
 	.string "Please, do something!!$"
 
 NPC_Talk_2::
-	.string "NPC: Where are you going?! \p"
+	.string "Kyle: Where are you going?! \p"
 	.string "Please, help!!!$"
 
 NPC_Talk_3::
-	.string "NPC: Wow! \p"
+	.string "Kyle: Wow! \p"
 	.string "Simply amazing! \p"
 	.string "I cannot believe you took down that \n"
 	.string "beast with such ease. \p"
@@ -436,7 +538,7 @@ Raichu_Join_Team::
 	.string "Let Raichu join you?$"
 
 Raichu_Obtained::
-	.string "Raichu joined your team!$"
+	.string "Raichu was caught!$"
 
 Raichu_Refusal::
 	.string "But there is a fire in its eyes...$"

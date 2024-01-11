@@ -454,8 +454,8 @@ $(OBJEVENTGFXDIR)/pokemon/mew.4bpp: %.4bpp: %.png
 $(OBJEVENTGFXDIR)/pokemon/pikachu.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 2
 
-$(OBJEVENTGFXDIR)/pokemon/poochyena.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -mwidth 4 -mheight 4
+$(OBJEVENTGFXDIR)/pokemon/director.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -mwidth 2 -mheight 4
 
 $(OBJEVENTGFXDIR)/pokemon/rayquaza.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 8 -mheight 8
@@ -466,8 +466,8 @@ $(OBJEVENTGFXDIR)/pokemon/skitty.4bpp: %.4bpp: %.png
 $(OBJEVENTGFXDIR)/pokemon/sudowoodo.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 4
 
-$(OBJEVENTGFXDIR)/pokemon/vigoroth.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -mwidth 4 -mheight 4
+$(OBJEVENTGFXDIR)/pokemon/kyle.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -mwidth 2 -mheight 4
 
 $(OBJEVENTGFXDIR)/pokemon/wingull.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 2

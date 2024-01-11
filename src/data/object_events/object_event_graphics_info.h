@@ -1803,41 +1803,22 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Truck = {
     .affineAnims = gDummySpriteAffineAnimTable,
 };
 
-const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_VigorothCarryingBox = {
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Kyle = {
     .tileTag = TAG_NONE,
-    .paletteTag = OBJ_EVENT_PAL_TAG_VIGOROTH,
+    .paletteTag = OBJ_EVENT_PAL_TAG_KYLE,
     .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
-    .size = 512,
-    .width = 32,
+    .size = 256,
+    .width = 16,
     .height = 32,
     .paletteSlot = PALSLOT_NPC_SPECIAL,
     .shadowSize = SHADOW_SIZE_M,
     .inanimate = FALSE,
     .disableReflectionPaletteLoad = FALSE,
     .tracks = TRACKS_FOOT,
-    .oam = &gObjectEventBaseOam_32x32,
-    .subspriteTables = sOamTables_32x32,
+    .oam = &gObjectEventBaseOam_16x32,
+    .subspriteTables = sOamTables_16x32,
     .anims = sAnimTable_Standard,
-    .images = sPicTable_VigorothCarryingBox,
-    .affineAnims = gDummySpriteAffineAnimTable,
-};
-
-const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_VigorothFacingAway = {
-    .tileTag = TAG_NONE,
-    .paletteTag = OBJ_EVENT_PAL_TAG_VIGOROTH,
-    .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
-    .size = 512,
-    .width = 32,
-    .height = 32,
-    .paletteSlot = PALSLOT_NPC_SPECIAL,
-    .shadowSize = SHADOW_SIZE_M,
-    .inanimate = FALSE,
-    .disableReflectionPaletteLoad = FALSE,
-    .tracks = TRACKS_FOOT,
-    .oam = &gObjectEventBaseOam_32x32,
-    .subspriteTables = sOamTables_32x32,
-    .anims = sAnimTable_Standard,
-    .images = sPicTable_VigorothFacingAway,
+    .images = sPicTable_Kyle,
     .affineAnims = gDummySpriteAffineAnimTable,
 };
 
@@ -1879,22 +1860,22 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_EnemyZigzagoon = {
     .affineAnims = gDummySpriteAffineAnimTable,
 };
 
-const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Poochyena = {
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Director = {
     .tileTag = TAG_NONE,
-    .paletteTag = OBJ_EVENT_PAL_TAG_POOCHYENA,
+    .paletteTag = OBJ_EVENT_PAL_TAG_DIRECTOR,
     .reflectionPaletteTag = OBJ_EVENT_PAL_TAG_NONE,
-    .size = 512,
-    .width = 32,
+    .size = 256,
+    .width = 16,
     .height = 32,
     .paletteSlot = PALSLOT_NPC_SPECIAL,
     .shadowSize = SHADOW_SIZE_M,
     .inanimate = FALSE,
     .disableReflectionPaletteLoad = FALSE,
     .tracks = TRACKS_FOOT,
-    .oam = &gObjectEventBaseOam_32x32,
-    .subspriteTables = sOamTables_32x32,
+    .oam = &gObjectEventBaseOam_16x32,
+    .subspriteTables = sOamTables_16x32,
     .anims = sAnimTable_Standard,
-    .images = sPicTable_Poochyena,
+    .images = sPicTable_Director,
     .affineAnims = gDummySpriteAffineAnimTable,
 };
 

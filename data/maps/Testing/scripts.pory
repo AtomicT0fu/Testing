@@ -9,6 +9,7 @@ mapscripts Testing_MapScripts{ // [NAME_OF_MAP]_MapScripts{
     MAP_SCRIPT_ON_FRAME_TABLE [ // Means a script will trigger when a var is at a certain value anywhere on the map
         VAR_GYARADOS_FIGHT, 0: GyaradosFightIntro // [NAME_OF_VAR], [VAR_VALUE]: [SCRIPT]
     ] 
+    MAP_SCRIPT_ON_LOAD: TreeClear
 }
 
 //---------------------------[EVENT_SCRIPTS]-----------------------------------------------------------
@@ -120,6 +121,16 @@ script GyaradosFight{
     }
 
     waitmessage
+    closemessage
+    fadescreen(FADE_TO_BLACK)
+    delay(30)
+    removeobject(6)
+    delay(30)
+    applymovement(OBJ_EVENT_ID_PLAYER, Player_5a)
+    waitmovement(0)
+    removeobject(1)
+    applymovement(OBJ_EVENT_ID_PLAYER, Player_5b)
+    waitmovement(0)
     setmetatile(21, 18, 0x0C3, TRUE) // setmetatile([x], [y], [NEW_METATILE_ID], [IMPASSABLE_T/F]) ,, **CANNOT UPDATE TILES CURRENTLY IN PLAYER VIEW**
     setmetatile(22, 18, 0x0B1, TRUE)
     setmetatile(23, 18, 0x0B1, TRUE)
@@ -143,6 +154,10 @@ script GyaradosFight{
     setmetatile(22, 22, 0x099, FALSE)
     setmetatile(23, 22, 0x099, FALSE)
     setmetatile(24, 22, 0x099, FALSE)
+    applymovement(OBJ_EVENT_ID_PLAYER, Player_5R)
+    waitmovement(0)
+    addobject(6)
+    fadescreen(FADE_FROM_BLACK)
     delay(90)
     addobject(5)
     playse(SE_BALL)
@@ -156,7 +171,6 @@ script GyaradosFight{
     playse(SE_RG_BAG_POCKET)
     waitse
     setvar(VAR_GYARADOS_FIGHT, 2)
-    setflag(FLAG_HIDE_GYARADOS) // Flags are either TRUE or FALSE ,, setflag(NAME_OF_FLAG) == TRUE ,, clearflag(NAME_OF_FLAG) == FALSE ,, Sprites will be hidden when the flag is SET(TRUE)
     fadedefaultbgm // Fades in the maps default bgm
     releaseall
     end
@@ -178,6 +192,7 @@ script GyaradosExit{
     waitmoncry
     playse(SE_M_DIVE)
     hideobjectat(2, MAP_TESTING)
+    setflag(FLAG_HIDE_GYARADOS) // Flags are either TRUE or FALSE ,, setflag(NAME_OF_FLAG) == TRUE ,, clearflag(NAME_OF_FLAG) == FALSE ,, Sprites will be hidden when the flag is SET(TRUE)
     delay(30)
     msgbox(GyaradosDive, MSGBOX_AUTOCLOSE)
     closemessage
@@ -186,6 +201,8 @@ script GyaradosExit{
 
 script GyaradosFightOutro{
     lockall
+    addobject(1)
+    delay(10)
     applymovement(1, NPC_2)
     waitmovement(0)
     msgbox(NPC_Talk_3, MSGBOX_AUTOCLOSE)
@@ -219,11 +236,20 @@ script GyaradosFightOutro{
 script RaichuJoinTeam{
     msgbox(Raichu_Join_Team, MSGBOX_YESNO) // MSGBOX_YESNO pulls up a YES/NO window option on screen
     if(var(VAR_RESULT) == YES){ // If the player selects yes then do ...
+        closemessage
         setflag(FLAG_SYS_POKEMON_GET) // **MUST SET THIS FLAG IF FIRST POKE OBTAINED** ,, Loads the Pokemon tab in Start Menu
         playse(SE_BALL_THROW)
         addobject(4, MAP_TESTING)
         delay(30)
+        playse(SE_BALL_OPEN)
         removeobject(3, MAP_TESTING)
+        delay(60)
+        playse(SE_BALL)
+        delay(60)
+        playse(SE_BALL)
+        delay(60)
+        playse(SE_BALL)
+        delay(60)
         playse(SE_RG_BALL_CLICK)
         waitse
         playfanfare(MUS_OBTAIN_BADGE) // Similar to playSE, but sounds such as a caught pokemon or a item obtained use playfanfare
@@ -243,7 +269,15 @@ script RaichuJoinTeam{
         playse(SE_BALL_THROW)
         addobject(4, MAP_TESTING)
         delay(30)
+        playse(SE_BALL_OPEN)
         removeobject(3, MAP_TESTING)
+        delay(60)
+        playse(SE_BALL)
+        delay(60)
+        playse(SE_BALL)
+        delay(60)
+        playse(SE_BALL)
+        delay(60)
         playse(SE_RG_BALL_CLICK)
         waitse
         playfanfare(MUS_OBTAIN_BADGE) // Similar to playSE, but sounds such as a caught pokemon or a item obtained use playfanfare
@@ -262,12 +296,41 @@ script WarpOut{
     lockall
     msgbox(Warp_Q, MSGBOX_YESNO)
     if(var(VAR_RESULT) == YES){
-        warpwhitefade(MAP_MAIN_HUB, 7, 11) // Fades screen to white and warpr player ,, warpwhitefade(MAP_[NAME_OF_MAP], [X], [Y])
+        setvar(VAR_MAIN_GAME, 0)
+        playse(SE_INTRO_BLAST)
+        warpwhitefade(MAP_MAIN_HUB, 7, 11) // Fades screen to white and warps player ,, warpwhitefade(MAP_[NAME_OF_MAP], [X], [Y])
     }
     else{
         releaseall
     }
     end
+}
+
+script TreeClear{
+    if(var(VAR_GYARADOS_FIGHT) == 3){
+        setmetatile(6, 9, 0x1E4, TRUE)
+        setmetatile(7, 9, 0x1E5, TRUE)
+        setmetatile(6, 12, 0x001, FALSE)
+        setmetatile(6, 13, 0x001, FALSE)
+        setmetatile(7, 12, 0x001, FALSE)
+        setmetatile(7, 13, 0x001, FALSE)
+        setmetatile(6, 10, 0x001, FALSE)
+        setmetatile(6, 11, 0x001, FALSE)
+        setmetatile(7, 10, 0x001, FALSE)
+        setmetatile(7, 11, 0x001, FALSE)
+        setmetatile(8, 9, 0x001, FALSE)
+        setmetatile(9, 9, 0x001, FALSE)
+        setmetatile(8, 10, 0x001, FALSE)
+        setmetatile(9, 10, 0x001, FALSE)
+        setmetatile(8, 11, 0x1CE, FALSE)
+        setmetatile(9, 11, 0x1CF, FALSE)
+        release
+    }
+    else{
+        release
+    }
+    end
+
 }
 
 //---------------------------[MOVEMENTS]-----------------------------------------------------------
@@ -292,6 +355,19 @@ movement Player_3{
 movement Player_4{
     emote_exclamation_mark // Emotes a "!" above object
     face_left
+}
+
+movement Player_5a{
+    walk_faster_left * 5
+}
+
+movement Player_5b{
+    walk_faster_left * 9
+}
+
+movement Player_5R{
+    walk_faster_right * 14
+    face_up
 }
 
 movement Player_Turn_Back{
@@ -366,19 +442,19 @@ text Player_Talk_1{
 }
 
 text NPC_Talk{
-    "NPC: Thank goodness someone is here! \n" 
+    "Kyle: Thank goodness someone is here! \n" 
     "There is a Gyarados on a rampage! \p"
     "I can’t do anything to help… \p"
     "Please, do something!!"
 }
 
 text NPC_Talk_2{
-    "NPC: Where are you going?! \p"
+    "Kyle: Where are you going?! \p"
     "Please, help!!!"
 }
 
 text NPC_Talk_3{
-    "NPC: Wow! \p"
+    "Kyle: Wow! \p"
     "Simply amazing! \p"
     "I cannot believe you took down that \n"
     "beast with such ease. \p"
@@ -392,7 +468,7 @@ text Raichu_Join_Team{
 }
 
 text Raichu_Obtained{
-    "Raichu joined your team!"
+    "Raichu was caught!"
 }
 
 text Raichu_Refusal{
